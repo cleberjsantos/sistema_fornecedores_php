@@ -83,7 +83,7 @@ jQuery(function ($) {
             data: $('form#fornecedorForm').serialize(),
             success: function (response) {
                 $("#modal-dialog").html(response);
-                $("#addEmployeeModal").modal('hide');
+                $("#addFornecedoresModal").modal('hide');
                 location.reload();
             },
             error: function () {

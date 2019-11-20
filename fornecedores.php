@@ -36,8 +36,8 @@
                         <h2>Gerenciar <b>Fornecedores</b></h2>
                     </div>
                     <div class="col-sm-6">
-                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Adicionar novo Fornecedor</span></a>
-                        <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Deletar</span></a>                        
+                        <a href="#addFornecedoresModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Adicionar novo Fornecedor</span></a>
+                        <a href="#deleteFornecedoresModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Deletar</span></a>                        
                     </div>
                 </div>
             </div>
@@ -77,8 +77,8 @@
                         <td><?php echo $forn[3]; ?></td>
                         <td><?php echo $forn[6]; ?></td>
                         <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Deletar">&#xE872;</i></a>
+                            <a href="#editFornecedoresModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                            <a href="#deleteFornecedoresModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Deletar">&#xE872;</i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -92,7 +92,7 @@
         </div>
     </div>
     <!-- MODAL DE ADIÇÃO  -->
-    <div id="addEmployeeModal" class="modal fade">
+    <div id="addFornecedoresModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -148,10 +148,10 @@
         </div>
     </div>
     <!-- MODAL DE EDIÇÃO -->
-    <div id="editEmployeeModal" class="modal fade">
+    <div id="editFornecedoresModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" id="fornecedorForm" name="frm_func" role="form">
+                <form method="post" id="editfornecedorForm" name="frm_func" role="form">
                     <div class="modal-header">                      
                         <h4 class="modal-title">Editar Fornecedor</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -203,12 +203,12 @@
         </div>
     </div>
     <!-- MODAL DE DELETAR  -->
-    <div id="deleteEmployeeModal" class="modal fade">
+    <div id="deleteFornecedoresModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form>
                     <div class="modal-header">                      
-                        <h4 class="modal-title">Delete Employee</h4>
+                        <h4 class="modal-title">Delete Fornecedores</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">                    
