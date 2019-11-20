@@ -30,53 +30,23 @@
             $sql->execute();
             return true;
         }
-        public function login($login, $senha) {
-
+        public function getIdFornecedores($id){
+            
             $db = new Db();
-            $sql = $db->sqlCmd("SELECT id_usuario, login, senha FROM usuarios WHERE login = ?", array($login), "rows");
-
+            $sql = $db->sqlCmd("SELECT * FROM fornecedores WHERE id_forn = ?", array($id), "rows");
+            
             if($sql){
-
-                foreach($sql as $row) {
-                    $hash = $row[2];
-                    if (Bcrypt::check($senha, $hash)){
-                        $_SESSION['loggedin'] = TRUE;
-                        $_SESSION['name'] = $login;
-                        $_SESSION['id'] = $row[0];
-                        header('Location: index.php');
-                    } else {
-                        header('Location: login.php?msg=Senha inválida&box=danger');
-                    }
-                }
-
-            } else {
-                header('Location: login.php?msg=Usuário inválido&box=danger');
+                return $sql;
             }
         }
-        public function getIdUsuario($id){
+        public function atualizarFornecedores($id, $cnpj, $nome_empresa, $nome_fantasia, $cep, $endereco, $email, $contato){
             
             $db = new Db();
-            $sql = $db->prepare("SELECT * from usuarios where id = :id ");
-            $sql->bindValue(":id", $id);
-            $sql->execute();
-            $row = $sql->fetch();
-            return $row;
-        }
-        public function atualizarUsuario($nome, $email, $senha,$cep, $rua, $bairro, $cidade, $telefone, $id) {
-            
-            $db = new Db();
-            $sql = $db->prepare("UPDATE usuarios SET nome = :nome, email = :email, senha = :senha,  cep = :cep, rua = :rua, bairro = :bairro, cidade = :cidade, telefone = :telefone where id = :id");
-            $sql->bindValue(":nome", $nome);
-            $sql->bindValue(":email", $email);
-            $sql->bindValue(":senha", $senha);
-            $sql->bindValue(":cep", $cep);
-            $sql->bindValue(":rua", $rua);
-            $sql->bindValue(":bairro", $bairro);
-            $sql->bindValue(":cidade", $cidade);
-            $sql->bindValue(":telefone", $telefone);
-            $sql->bindValue(":id", $id);
-            $sql->execute();
-            return true;
+            $sql = $db->sqlCmd("UPDATE fornecedores SET nome_empresa = ?, nome_fantasia = ?,  endereco = ?, cep = ?, cnpj = ?, contato = ?, email = ? WHERE id_forn = ?", array($nome_empresa, $nome_fantasia, $endereco, preg_replace("/[^0-9]/", "", $cep), $cnpj, $contato, $email, $id), "count");
+
+            if($sql){
+                return true;
+            }
         }
     }
 ?>

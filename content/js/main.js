@@ -82,12 +82,30 @@ jQuery(function ($) {
             cache: false,
             data: $('form#fornecedorForm').serialize(),
             success: function (response) {
-                $("#modal-dialog").html(response);
                 $("#addFornecedoresModal").modal('hide');
                 location.reload();
             },
             error: function () {
                 alert("Error");
+            }
+        });
+        return false;
+    });
+
+    // Envio para Editar fornecedores
+    $(".editfornecedorForm").submit(function () {
+        $.ajax({
+            type: "POST",
+            url: "fornecedores.php",
+            cache: false,
+            data: $(this).serialize(),
+            success: function (response) {
+                $('div[id^=editFornecedoresModal] .editfornecedorForm').modal('hide');
+                location.reload();
+            },
+            error: function (e) {
+                console.log(e);
+                alert(e);
             }
         });
         return false;
