@@ -54,25 +54,29 @@ jQuery(function ($) {
     // TABELAS
     $('[data-toggle="tooltip"]').tooltip();
 
-    // Select/Deselect checkboxes
-    var checkbox = $('table tbody input[type="checkbox"]');
-    $("#selectAll").click(function () {
-        if (this.checked) {
-            checkbox.each(function () {
-                this.checked = true;
-            });
-        } else {
-            checkbox.each(function () {
-                this.checked = false;
-            });
+    $('#table').DataTable( {
+        paging: true,
+        scrollY: 300,
+        info: false,
+        ordering:  false,
+        language: {
+            processing:     "Processando...",
+            search:         "Buscar&nbsp;:",
+            lengthMenu:     "Mostrar _MENU_ itens",
+            info:           "Mostrando _START_ de _END_ Total _TOTAL_",
+            paginate: {
+                first:      "Primeiro",
+                previous:   "Anterior",
+                next:       "Pr&oacute;ximo",
+                last:       "&Uacute;ltimo"
+            },
+            aria: {
+                sortAscending:  ": ativar para classificar a coluna em ordem crescente",
+                sortDescending: ": ativar para classificar a coluna em ordem decrescente"
+            }
         }
-    });
+    } );
 
-    checkbox.click(function () {
-        if (!this.checked) {
-            $("#selectAll").prop("checked", false);
-        }
-    });
 
     // Envio para adicionar fornecedores
     $("#fornecedorForm").submit(function () {
@@ -93,14 +97,33 @@ jQuery(function ($) {
     });
 
     // Envio para Editar fornecedores
-    $(".editfornecedorForm").submit(function () {
+    $(".editarfornecedorForm").submit(function () {
         $.ajax({
             type: "POST",
             url: "fornecedores.php",
             cache: false,
             data: $(this).serialize(),
             success: function (response) {
-                $('div[id^=editFornecedoresModal] .editfornecedorForm').modal('hide');
+                $('div[id^=editFornecedoresModal] .editarfornecedorForm').modal('hide');
+                location.reload();
+            },
+            error: function (e) {
+                console.log(e);
+                alert(e);
+            }
+        });
+        return false;
+    });
+
+    // Envio para Remover fornecedores
+    $(".deletarfornecedorForm").submit(function () {
+        $.ajax({
+            type: "POST",
+            url: "fornecedores.php",
+            cache: false,
+            data: $(this).serialize(),
+            success: function (response) {
+                $('div[id^=editFornecedoresModal] .editarfornecedorForm').modal('hide');
                 location.reload();
             },
             error: function (e) {

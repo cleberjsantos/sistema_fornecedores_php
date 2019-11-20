@@ -36,6 +36,11 @@
 
                 $fornecedores->atualizarFornecedores($_POST['id_forn'], $cnpj, $nome_empresa, $nome_fantasia, $cep, $endereco, $email, $contato);
             }
+        } elseif ($_POST['action'] == "42") {
+            // Remover 
+            if (isset($_POST['id_forn'])) {
+                $fornecedores->deleltarFornecedores($_POST['id_forn']);
+            }
         }
     }
 ?>
@@ -48,23 +53,17 @@
                     </div>
                     <div class="col-sm-6">
                         <a href="#addFornecedoresModal" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i> <span>Adicionar novo Fornecedor</span></a>
-                        <a href="#deleteFornecedoresModal" class="btn btn-danger" data-toggle="modal"><i class="fa fa-minus-circle" aria-hidden="true"></i> <span>Deletar</span></a>                        
                     </div>
                 </div>
             </div>
-            <table class="table table-striped table-hover">
+            <table id="table" class="table table-striped table-hover display">
               <?php
                   $resp = $fornecedores->getFornecedores();
                   if ($resp):
               ?>
                 <thead>
                     <tr>
-                        <th>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="selectAll">
-                                <label for="selectAll"></label>
-                            </span>
-                        </th>
+                        <th>ID</th>
                         <th>Empresa</th>
                         <th>Email</th>
                         <th>Endereço</th>
@@ -77,12 +76,7 @@
                     foreach($resp as $forn):
                   ?>
                     <tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox1" name="options[]" value="<?php echo $forn[0]; ?>">
-                                <label for="checkbox1"></label>
-                            </span>
-                        </td>
+                        <td><?php echo $forn[0]; ?></td>
                         <td><?php echo $forn[2]; ?></td>
                         <td><?php echo $forn[7]; ?></td>
                         <td><?php echo $forn[3]; ?></td>
@@ -167,7 +161,7 @@
     <div id="editFornecedoresModal<?php echo $forns[0]; ?>" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" class="editfornecedorForm" name="frm_func" role="form">
+                <form method="post" class="editarfornecedorForm" name="frm_func" role="form">
                     <div class="modal-header">
                         <h4 class="modal-title">Editar Fornecedor</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -230,13 +224,14 @@
                         <h4 class="modal-title">Deletar Fornecedor</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
-                    <div class="modal-body">       
-                        <input type="hidden" name="delete_id" value="<?php echo $forns[0]; ?>">
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" name="action" value="42">
+                        <input type="hidden" name="id_forn" value="<?php echo $forns[0]; ?>">
                         <div class="alert alert-danger">Você desejar deletar o fornecedor <strong>
                                 <?php echo $forns[2]; ?>?</strong> </div>
                         <div class="modal-footer">     
-                            <button type="submit" name="delete" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> SIM</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"> NÃO</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"> Cancelar</button>
+                            <button type="submit" name="delete" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Deletar</button>
                         </div>                         
                     </div>                         
                 </div>                         

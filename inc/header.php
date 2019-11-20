@@ -10,7 +10,14 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">    
+
+
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/content/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/content/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo BASEURL; ?>/content/css/responsive.bootstrap.min.css">
+
     <link rel="stylesheet" href="<?php echo BASEURL; ?>/content/css/bootstrap.min.css" crossorigin="anonymous">
+
     <title>Projeto Fornecedores e Produtos</title>
 
     <style>

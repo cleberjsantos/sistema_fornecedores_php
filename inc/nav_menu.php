@@ -5,8 +5,8 @@
   <ul class="navbar-nav mr-auto">
       <?php 
           if (isset($_SESSION['loggedin'])) {
-              echo "<!--li class='nav-item'><a class='nav-link' href='". BASEURL ."/fornecedores.php'>Fornecedores</a></li-->";
-              echo "<!--li class='nav-item'><a class='nav-link' href='". BASEURL ."/produtos.php'>Produtos</a></li-->";
+              echo "<li class='nav-item'><a class='nav-link' href='". BASEURL ."/fornecedores.php'>Fornecedores</a></li>";
+              echo "<li class='nav-item'><a class='nav-link' href='". BASEURL ."/produtos.php'>Produtos</a></li>";
           }
       ?>
   </ul>

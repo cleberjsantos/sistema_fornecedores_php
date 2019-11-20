@@ -16,6 +16,7 @@
 
     <script src="<?php echo BASEURL; ?>/content/js/popper.min.js" crossorigin="anonymous"></script>
     <script src="<?php echo BASEURL; ?>/content/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="<?php echo BASEURL; ?>/content/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo BASEURL; ?>/content/js/main.js"></script>
 </body>
 </html>

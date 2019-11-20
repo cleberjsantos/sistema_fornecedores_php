@@ -22,13 +22,14 @@
             }
 
         }
-        public function delFornecedores($id){
+        public function deleltarFornecedores($id){
             
             $db = new Db();
-            $sql = $db->prepare("DELETE FROM usuarios WHERE id = :id");
-            $sql->bindValue(":id", $id);
-            $sql->execute();
-            return true;
+            $sql = $db->sqlCmd("DELETE FROM fornecedores WHERE id_forn = ?", array($id), "count");
+
+            if($sql){
+                return true;
+            }
         }
         public function getIdFornecedores($id){
             
