@@ -1,0 +1,1 @@
+<a class="logo" href="<?php echo BASEURL; ?>"><h1 class="logo">7TOR<span class="logo">SYSTEMS</span></h1></a>
