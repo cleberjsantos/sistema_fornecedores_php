@@ -1,4 +1,19 @@
 <?php
+    // caminho absoluto para a pasta do sistema
+    if ( !defined('ABSPATH') ) {
+    	define('ABSPATH', dirname(__FILE__) . '/');
+    }
+
+    // caminho no server para o sistema
+    if ( !defined('BASEURL') ) {
+    	define('BASEURL', '/7thorsystems');
+    }
+
+    // caminho do arquivo de banco de dados
+    if ( !defined('DBAPI') ) {
+    	define('DBAPI', ABSPATH . '/system/pdo.php');
+    }
+
     /* PDO: https://www.php.net/manual/pt_BR/book.pdo.php
            Variáveis PDO 
     */                       
@@ -12,23 +27,9 @@
     /* Concatenação das variáveis para detalhes da classe PDO                                 
           -- Data Source Name ( DSN )
     */
+
     define('DB_DSN', 'mysql:dbname='. DB_NAME . ';host=' . DB_HOST);
 
-
-    // caminho absoluto para a pasta do sistema
-    if ( !defined('ABSPATH') ) {
-    	define('ABSPATH', dirname(__FILE__) . '/');
-    }
-
-    // caminho no server para o sistema
-    if ( !defined('BASEURL') ) {
-    	define('BASEURL', '/7thorsystems');
-    }
-    	
-    // caminho do arquivo de banco de dados
-    if ( !defined('DBAPI') ) {
-    	define('DBAPI', ABSPATH . '/system/pdo.php');
-    }
 
     // caminhos dos templates de header e footer
     define('HEADER_TEMPLATE', ABSPATH . 'inc/header.php');
