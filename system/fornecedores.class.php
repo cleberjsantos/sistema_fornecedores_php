@@ -34,7 +34,7 @@
         public function getIdFornecedores($id){
             
             $db = new Db();
-            $sql = $db->sqlCmd("SELECT * FROM fornecedores WHERE id_forn = ?", array($id), "rows");
+            $sql = $db->sqlCmd("SELECT id_forn, nome_empresa, nome_fantasia FROM fornecedores WHERE id_forn = ?", array($id), "rows");
             
             if($sql){
                 return $sql;

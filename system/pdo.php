@@ -23,14 +23,13 @@
                             contato VARCHAR (20),
                             email VARCHAR (60)) ENGINE = MyISAM;",
                         "CREATE TABLE IF NOT EXISTS `". DB_NAME ."`.produtos(
-                            id_produto INT (11),
+                            id_produto INT PRIMARY KEY AUTO_INCREMENT,
                             id_forn INT (10),
                             nome_produto VARCHAR (160),
                             modelo VARCHAR (80),
                             lote INT (20),
                             preco FLOAT (5, 2),
                             quantidade INT (20),
-                            constraint produto_pk PRIMARY KEY AUTO_INCREMENT (id_produto),
                             constraint fornecedores_produtos_fk FOREIGN KEY (id_forn)
                             REFERENCES fornecedores (id_forn)) ENGINE = MyISAM;"
                        ];
