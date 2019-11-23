@@ -27,16 +27,16 @@
             }
         } elseif ($_POST['action'] == "2") {
             // Atualizar
-            if (isset($_POST['cnpj']) && isset($_POST['nome_empresa']) && isset($_POST['cep']) && isset($_POST['endereco']) && isset($_POST['email']) && isset($_POST['contato'])) {
-                $cnpj = strip_tags($_POST['cnpj']);
-                $nome_empresa = strip_tags($_POST['nome_empresa']);
-                $nome_fantasia = strip_tags($_POST['nome_fantasia']);
-                $cep = strip_tags($_POST['cep']);
-                $endereco = strip_tags($_POST['endereco']);
-                $email = strip_tags($_POST['email']);
-                $contato = strip_tags($_POST['contato']);
+            if (isset($_POST['id_prod']) && isset($_POST['nome_produto']) && isset($_POST['id_forn'])) {
+                $id_prod = strip_tags($_POST['id_prod']);
+                $id_forn = strip_tags($_POST['id_forn']);
+                $nome_produto = strip_tags($_POST['nome_produto']);
+                $modelo = strip_tags($_POST['modelo']);
+                $lote = strip_tags($_POST['lote']);
+                $preco = strip_tags($_POST['preco']);
+                $quantidade = strip_tags($_POST['quantidade']);
 
-                $produtos->atualizarProdutos($_POST['id_prod'], $cnpj, $nome_empresa, $nome_fantasia, $cep, $endereco, $email, $contato);
+                $produtos->atualizarProdutos($id_prod, $id_forn, $nome_produto, $modelo, $lote, $preco, $quantidade);
             }
         } elseif ($_POST['action'] == "42") {
             // Remover 
@@ -140,7 +140,7 @@
             <div class="modal-content">
 
                 <form method="post" id="produtoForm" name="frm_func" role="form">
-                    <div class="modal-header">                      
+                    <div class="modal-header">
                         <h4 class="modal-title">Adicionar Produto</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
@@ -150,7 +150,7 @@
                             <label for="nome_produto" class="col-form-label" >Produto:</label>
                             <input type="text" class="form-control" maxlength="160" name="nome_produto" required>
                         </div> 
-                    
+
                         <div class="form-group row" >
                             <label for="id_forn" class="col-form-label" >Fornecedor:</label>
                             <select  class="form-control" name="id_forn" required>
@@ -165,25 +165,25 @@
                                 ?>
                             </select>
                         </div>
-                           
+
                         <div class="form-group row" >
-                            <label for="modelo" class="col-form-label" >Modelo:</label>   
+                            <label for="modelo" class="col-form-label" >Modelo:</label>
                             <input type="text" class="form-control" maxlength="80" name="modelo" required></br>
                         </div>
                     
                         <div class="form-group row" >
                             <label for="lote" class="col-form-label" >Lote:</label>
-                            <input type="text" class="form-control" maxlength="20" placeholder="Número do lote" name="lote" required></br>
+                            <input type="text" class="form-control" maxlength="20" placeholder="Ex. 12345" name="lote" required></br>
                         </div>
                     
                         <div class="form-group row" >
-                            <label for="preco" class="col-form-label" >Preço:</label>   
-                            <input type="text" class="form-control" name="preco" required></br>
+                            <label for="preco" class="col-form-label" >Preço:</label>
+                            <input type="text" class="form-control" name="preco" placeholder="Ex. 999.99" required></br>
                         </div>
                       
                         <div class="form-group row" >
-                            <label for="quantidade" class="col-form-label" >Quantidade:</label>   
-                            <input type="text" class="form-control" maxlength="20" name="quantidade" required></br>
+                            <label for="quantidade" class="col-form-label" >Quantidade:</label>
+                            <input type="text" class="form-control" maxlength="20" placeholder="Ex. 99" name="quantidade" required></br>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -195,6 +195,7 @@
             </div>
         </div>
     </div>
+
     <!-- MODAL DE EDIÇÃO -->
     <?php
         $prod = $produtos->getProdutos();
@@ -213,38 +214,47 @@
 
                     <div class="modal-body">
                         <div class="form-group row" >
-                            <label for="cnpj" class="col-form-label" >CNPJ:</label>
-                            <input type="text" class="form-control" placeholder="Ex. 12.123.123/0001-00" maxlength="18" name="cnpj" value="<?php echo $prods[5]; ?>" required autofocus>
+                            <label for="nome_produto" class="col-form-label" >Produto:</label>
+                            <input type="text" class="form-control" maxlength="160" name="nome_produto" value="<?php echo $prods['2'] ?>" required>
+                        </div> 
+
+                        <div class="form-group row" >
+                            <label for="id_forn" class="col-form-label" >Fornecedor:</label>
+                            <select  class="form-control" name="id_forn" required>
+                                <option value="">--</option>
+                                <?php
+                                    $resp = $fornecedores->getFornecedores();
+                                    if ($resp) {
+                                        foreach($resp as $forn){
+                                            if ($forn[0] == $prods['1']){
+                                                echo("<option value='".$forn[0]."' selected>".$forn[2]."</option>");
+                                            } else {
+                                                echo("<option value='".$forn[0]."'>".$forn[2]."</option>");
+                                            }
+                                        }
+                                    }
+                                ?>
+                            </select>
                         </div>
 
                         <div class="form-group row" >
-                            <label for="nome_empresa" class="col-form-label" >Empresa:</label>
-                            <input type="text" class="form-control" maxlength="160" name="nome_empresa" value="<?php echo $prods[1]; ?>" required autofocus>
-                        </div> 
-                    
-                        <div class="form-group row" >
-                            <label for="nome_fantasia" class="col-form-label" >Nome Fantasia:</label>   
-                            <input type="text" class="form-control" maxlength="160" name="nome_fantasia" value="<?php echo $prods[2]; ?>" autofocus></br>
-                        </div>
-                           
-                        <div class="form-group row" >
-                            <label for="cep" class="col-form-label" >CEP:</label>   
-                            <input type="text" class="form-control" maxlength="8" placeholder="Ex. 08123456" name="cep" value="<?php echo $prods[4]; ?>" required autofocus></br>
+                            <label for="modelo" class="col-form-label" >Modelo:</label>
+                            <input type="text" class="form-control" maxlength="80" name="modelo" value="<?php echo $prods['3'] ?>" required></br>
                         </div>
                     
                         <div class="form-group row" >
-                            <label for="endereco" class="col-form-label" >Endereço:</label>
-                            <textarea class="form-control" maxlength="130" name="endereco" required autofocus><?php echo $prods[3]; ?></textarea>
+                            <label for="lote" class="col-form-label" >Lote:</label>
+                            <input type="text" class="form-control" maxlength="20" placeholder="Ex. 12345" name="lote" value="<?php echo $prods['4'] ?>" required></br>
                         </div>
                     
                         <div class="form-group row" >
-                            <label for="email" class="col-form-label" >email:</label>   
-                            <input type="email" class="form-control" maxlength="60" name="email" value="<?php echo $prods[7]; ?>" required autofocus></br>
+                            <label for="preco" class="col-form-label" >Preço:</label>
+                            <input type="text" class="form-control" name="preco" placeholder="Ex. 999.99" value="<?php echo $prods['5'] ?>" required></br>
                         </div>
                       
                         <div class="form-group row" >
-                            <label for="contato" class="col-form-label" >Telefone:</label>   
-                            <input type="text" class="form-control" maxlength="14" placeholder="Ex. 011 91234-4567" name="contato" value="<?php echo $prods[6]; ?>" required autofocus></br>
+                            <label for="quantidade" class="col-form-label" >Quantidade:</label>
+                            <input type="text" class="form-control" maxlength="20" placeholder="Ex. 99" name="quantidade" value="<?php echo $prods['6'] ?>" required></br>
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -40,10 +40,10 @@
                 return $sql;
             }
         }
-        public function atualizarProdutos($id, $cnpj, $nome_empresa, $nome_fantasia, $cep, $endereco, $email, $contato){
+        public function atualizarProdutos($id_prod, $id_forn, $nome_produto, $modelo, $lote, $preco, $quantidade){
             
             $db = new Db();
-            $sql = $db->sqlCmd("UPDATE produtos SET nome_empresa = ?, nome_fantasia = ?,  endereco = ?, cep = ?, cnpj = ?, contato = ?, email = ? WHERE id_forn = ?", array($nome_empresa, $nome_fantasia, $endereco, preg_replace("/[^0-9]/", "", $cep), $cnpj, $contato, $email, $id), "count");
+            $sql = $db->sqlCmd("UPDATE produtos SET id_forn = ?, nome_produto = ?, modelo = ?, lote = ?, preco = ?, quantidade = ? WHERE id_produto = ?", array($id_forn, $nome_produto, $modelo, $lote, $preco, $quantidade, $id_prod), "count");
 
             if($sql){
                 return true;

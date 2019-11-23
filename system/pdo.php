@@ -28,7 +28,7 @@
                             nome_produto VARCHAR (160),
                             modelo VARCHAR (80),
                             lote INT (20),
-                            preco FLOAT (5, 2),
+                            preco DECIMAL (5, 2),
                             quantidade INT (20),
                             constraint fornecedores_produtos_fk FOREIGN KEY (id_forn)
                             REFERENCES fornecedores (id_forn)) ENGINE = MyISAM;"
