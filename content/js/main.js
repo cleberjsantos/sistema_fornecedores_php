@@ -35,6 +35,8 @@ window.onload = function () {
 // BUSCA CEP
 jQuery(function ($) {
     'use strict';
+    var canonical = $("link[rel='canonical']").attr("href");
+
     $("input[name='cep']").change(function () {
         var cep_code = $(this).val();
         if (cep_code.length <= 0) {
@@ -87,10 +89,10 @@ jQuery(function ($) {
             data: $('form#fornecedorForm').serialize(),
             success: function (response) {
                 $("#addFornecedoresModal").modal('hide');
-                location.reload();
+                window.location.replace(canonical + '/fornecedores.php');
             },
-            error: function () {
-                alert("Error");
+            error: function (e) {
+                alert(e);
             }
         });
         return false;
@@ -105,10 +107,9 @@ jQuery(function ($) {
             data: $(this).serialize(),
             success: function (response) {
                 $('div[id^=editFornecedoresModal] .editarfornecedorForm').modal('hide');
-                location.reload();
+                window.location.replace(canonical + '/fornecedores.php');
             },
             error: function (e) {
-                console.log(e);
                 alert(e);
             }
         });
@@ -123,11 +124,10 @@ jQuery(function ($) {
             cache: false,
             data: $(this).serialize(),
             success: function (response) {
-                $('div[id^=editFornecedoresModal] .editarfornecedorForm').modal('hide');
-                location.reload();
+                $('div[id^=deleteFornecedoresModal] .editarfornecedorForm').modal('hide');
+                window.location.replace(canonical + '/fornecedores.php');
             },
             error: function (e) {
-                console.log(e);
                 alert(e);
             }
         });
