@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <?php require_once('expires.php'); ?>
 
     <link rel="canonical" href="<?php echo BASEURL; ?>">
 
@@ -29,7 +30,7 @@
         }
     </style>
 
-    <link rel="stylesheet" href="<?php echo BASEURL; ?>/content/css/geral.css" crossorigin="anonymous" />
+    <link rel="stylesheet" media="all" href="<?php echo BASEURL; ?>/content/css/geral.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
