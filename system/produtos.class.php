@@ -25,7 +25,7 @@
         public function deleltarProdutos($id){
             
             $db = new Db();
-            $sql = $db->sqlCmd("DELETE FROM produtos WHERE id_forn = ?", array($id), "count");
+            $sql = $db->sqlCmd("DELETE FROM produtos WHERE id_produto = ?", array($id), "count");
 
             if($sql){
                 return true;

@@ -10,6 +10,8 @@
 
     // Funções CRUD para produtos / fornecedores
     $fornecedores = new Fornecedores();
+    $f = $fornecedores->getFornecedores();
+
     $produtos = new Produtos();
 
     if (isset($_POST['action']) && !empty($_POST['action']) ) {
@@ -56,11 +58,8 @@
                     <div class="col-sm-6">
 
                     <?php
-                       $f = $fornecedores->getFornecedores();
                        if ($f) {
-                           foreach($f as $frn){
-                               echo "<a href='#addProdutosModal' class='btn btn-success' data-toggle='modal'><i class='fa fa-plus-circle' aria-hidden='true'></i> <span>Adicionar novo Produto</span></a>";
-                           }
+                           echo "<a href='#addProdutosModal' class='btn btn-success' data-toggle='modal'><i class='fa fa-plus-circle' aria-hidden='true'></i> <span>Adicionar novo Produto</span></a>";
                        } else {
                            echo "<div class='alert alert-warning' role='alert'>Antes é necessário adicionar um <strong>Fornecedor!</strong></div>";
                        }
@@ -92,9 +91,9 @@
                         <td><?php echo $prod[2]; ?></td>
                         <td>
                            <?php
-                              $f = $fornecedores->getIdFornecedores($prod[1]);
-                              if ($f) {
-                                  foreach($f as $frn){
+                              $f_id = $fornecedores->getIdFornecedores($prod[1]);
+                              if ($f_id) {
+                                  foreach($f_id as $frn){
                                       echo $frn[2];
                                   }
                               }
@@ -156,9 +155,8 @@
                             <select  class="form-control" name="id_forn" required>
                                 <option value="">--</option>
                                 <?php
-                                    $resp = $fornecedores->getFornecedores();
-                                    if ($resp) {
-                                        foreach($resp as $forn){
+                                    if ($f) {
+                                        foreach($f as $forn){
                                             echo("<option value='".$forn[0]."'>".$forn[2]."</option>");
                                         }
                                     }
@@ -223,9 +221,8 @@
                             <select  class="form-control" name="id_forn" required>
                                 <option value="">--</option>
                                 <?php
-                                    $resp = $fornecedores->getFornecedores();
-                                    if ($resp) {
-                                        foreach($resp as $forn){
+                                    if ($f) {
+                                        foreach($f as $forn){
                                             if ($forn[0] == $prods['1']){
                                                 echo("<option value='".$forn[0]."' selected>".$forn[2]."</option>");
                                             } else {
