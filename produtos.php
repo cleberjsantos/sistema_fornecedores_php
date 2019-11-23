@@ -54,7 +54,17 @@
                         <h2>Gerenciar <b>Produtos</b></h2>
                     </div>
                     <div class="col-sm-6">
-                        <a href="#addProdutosModal" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus-circle" aria-hidden="true"></i> <span>Adicionar novo Produto</span></a>
+
+                    <?php
+                       $f = $fornecedores->getFornecedores();
+                       if ($f) {
+                           foreach($f as $frn){
+                               echo "<a href='#addProdutosModal' class='btn btn-success' data-toggle='modal'><i class='fa fa-plus-circle' aria-hidden='true'></i> <span>Adicionar novo Produto</span></a>";
+                           }
+                       } else {
+                           echo "<div class='alert alert-warning' role='alert'>Antes é necessário adicionar um <strong>Fornecedor!</strong></div>";
+                       }
+                     ?>
                     </div>
                 </div>
             </div>
