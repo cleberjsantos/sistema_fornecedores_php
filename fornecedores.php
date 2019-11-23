@@ -90,7 +90,24 @@
               <?php
                   endforeach;
                   else:
-                      echo "Não existem registros na base de dados"; 
+                ?>
+
+                <thead>
+                    <tr>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="alert alert-warning" role="alert">
+                                 Nenhum registro encontrado.
+                             </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+              <?php
                   endif;
               ?>
             </table>
@@ -115,12 +132,12 @@
 
                         <div class="form-group row" >
                             <label for="nome_empresa" class="col-form-label" >Empresa:</label>
-                            <input type="text" class="form-control" maxlength="80" name="nome_empresa" required>
+                            <input type="text" class="form-control" maxlength="160" name="nome_empresa" required>
                         </div> 
                     
                         <div class="form-group row" >
                             <label for="nome_fantasia" class="col-form-label" >Nome Fantasia:</label>   
-                            <input type="text" class="form-control" maxlength="80" name="nome_fantasia"></br>
+                            <input type="text" class="form-control" maxlength="160" name="nome_fantasia"></br>
                         </div>
                            
                         <div class="form-group row" >
@@ -130,12 +147,12 @@
                     
                         <div class="form-group row" >
                             <label for="endereco" class="col-form-label" >Endereço:</label>
-                            <textarea class="form-control" maxlength="50" name="endereco" required></textarea>
+                            <textarea class="form-control" maxlength="130" name="endereco" required></textarea>
                         </div>
                     
                         <div class="form-group row" >
                             <label for="email" class="col-form-label" >email:</label>   
-                            <input type="email" class="form-control" maxlength="30" name="email" required></br>
+                            <input type="email" class="form-control" maxlength="60" name="email" required></br>
                         </div>
                       
                         <div class="form-group row" >
@@ -155,7 +172,8 @@
     <!-- MODAL DE EDIÇÃO -->
     <?php
         $forn = $fornecedores->getFornecedores();
-        foreach($forn as $forns):
+        if ($forn):
+            foreach($forn as $forns):
     ?>
 
     <div id="editFornecedoresModal<?php echo $forns[0]; ?>" class="modal fade" role="dialog">
@@ -175,12 +193,12 @@
 
                         <div class="form-group row" >
                             <label for="nome_empresa" class="col-form-label" >Empresa:</label>
-                            <input type="text" class="form-control" maxlength="80" name="nome_empresa" value="<?php echo $forns[1]; ?>" required autofocus>
+                            <input type="text" class="form-control" maxlength="160" name="nome_empresa" value="<?php echo $forns[1]; ?>" required autofocus>
                         </div> 
                     
                         <div class="form-group row" >
                             <label for="nome_fantasia" class="col-form-label" >Nome Fantasia:</label>   
-                            <input type="text" class="form-control" maxlength="80" name="nome_fantasia" value="<?php echo $forns[2]; ?>" autofocus></br>
+                            <input type="text" class="form-control" maxlength="160" name="nome_fantasia" value="<?php echo $forns[2]; ?>" autofocus></br>
                         </div>
                            
                         <div class="form-group row" >
@@ -190,12 +208,12 @@
                     
                         <div class="form-group row" >
                             <label for="endereco" class="col-form-label" >Endereço:</label>
-                            <textarea class="form-control" maxlength="50" name="endereco" required autofocus><?php echo $forns[3]; ?></textarea>
+                            <textarea class="form-control" maxlength="130" name="endereco" required autofocus><?php echo $forns[3]; ?></textarea>
                         </div>
                     
                         <div class="form-group row" >
                             <label for="email" class="col-form-label" >email:</label>   
-                            <input type="email" class="form-control" maxlength="30" name="email" value="<?php echo $forns[7]; ?>" required autofocus></br>
+                            <input type="email" class="form-control" maxlength="60" name="email" value="<?php echo $forns[7]; ?>" required autofocus></br>
                         </div>
                       
                         <div class="form-group row" >
@@ -216,8 +234,8 @@
 
     <!-- MODAL DE DELETAR --> 
     <div id="deleteFornecedoresModal<?php echo $forns[0]; ?>" class="modal fade" role="dialog">
-        <div class="modal-dialog">     
-            <form method="post">           
+        <div class="modal-dialog">
+            <form method="post" class="deletarfornecedorForm" name="frm_func" role="form">
                 <!-- Modal content-->          
                 <div class="modal-content">    
                     <div class="modal-header">
@@ -241,6 +259,7 @@
 
     <?php
         endforeach;
+        endif;
     ?>
 
 <?php require_once(FOOTER_TEMPLATE); ?>
