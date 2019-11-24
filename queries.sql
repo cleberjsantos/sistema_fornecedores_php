@@ -30,8 +30,9 @@ CREATE TABLE IF NOT EXISTS produtos(
 
 CREATE TABLE IF NOT EXISTS usuarios (
            id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-           login VARCHAR(30),
-           senha VARCHAR(60)
+           login VARCHAR(60) UNIQUE,
+           senha VARCHAR(60),
+           papel VARCHAR(40)
 ) ENGINE = MyISAM;
 
-INSERT INTO usuarios(login, senha) VALUES ('root', '$senha');
+INSERT INTO usuarios(login, senha, papel) VALUES ('root', '123mudar4', 'admin');

@@ -10,9 +10,10 @@
 
             $TABELAS = ["CREATE TABLE IF NOT EXISTS `". DB_NAME ."`.usuarios (
                             id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-                            login VARCHAR(30),
-                            senha VARCHAR(60)) ENGINE = MyISAM;
-                            INSERT INTO ". DB_NAME .".usuarios(login, senha) VALUES ('root', '$senha')",
+                            login VARCHAR(60) UNIQUE,
+                            senha VARCHAR(60),
+                            papel VARCHAR(40)) ENGINE = MyISAM;
+                            INSERT INTO ". DB_NAME .".usuarios(login, senha, papel) VALUES ('root', '$senha', 'admin')",
                         "CREATE TABLE IF NOT EXISTS `". DB_NAME ."`.fornecedores(
                             id_forn INT PRIMARY KEY AUTO_INCREMENT,
                             nome_empresa VARCHAR (160),
