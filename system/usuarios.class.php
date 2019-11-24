@@ -6,47 +6,35 @@
 
     class Usuarios {
         public function getUsuarios(){
-            
             $db = new Db();
-            $sql = $db->query("SELECT * FROM usuarios");
-            $row = $sql->fetchAll();
-            return $row;
+            $sql = $db->sqlCmd("SELECT * FROM usuarios", "", "rows");
+
+            if($sql){
+                return $sql;
+            }
         }
-        public function delUsuarios($id){
+        public function deleltarUsuarios($id){
             
             $db = new Db();
-            $sql = $db->prepare("DELETE FROM usuarios WHERE id = :id");
-            $sql->bindValue(":id", $id);
-            $sql->execute();
-            return true;
-        }
-        public function cadastrar($nome, $email, $senha,$cep, $rua, $bairro, $cidade , $telefone) {
-            
-            $db = new Db();
-            $sql = $db->prepare("SELECT id FROM usuarios WHERE email = :email");
-            $sql->bindValue(":email", $email);
-            $sql->execute();
-            if($sql->rowCount() == 0) {
-                $sql = $db->prepare("INSERT INTO usuarios SET nome = :nome, email = :email, senha = :senha,  cep = :cep, rua = :rua, bairro = :bairro, cidade = :cidade,telefone = :telefone");
-                $sql->bindValue(":nome", $nome);
-                $sql->bindValue(":email", $email);
-                $sql->bindValue(":senha", $senha);
-                $sql->bindValue(":cep", $cep);
-                $sql->bindValue(":rua", $rua);
-                $sql->bindValue(":bairro", $bairro);
-                $sql->bindValue(":cidade", $cidade);
-                $sql->bindValue(":telefone", $telefone);
-                
-                $sql->execute();
+            $sql = $db->sqlCmd("DELETE FROM usuarios WHERE id_usuario = ?", array($id), "count");
+
+            if($sql){
                 return true;
-            } else {
-                return false;
+            }
+        }
+        public function cadastrarUsuarios($login, $senha, $papel){
+            $db = new Db();
+            $pwd = Bcrypt::hash($senha);
+            $sql = $db->sqlCmd("INSERT INTO usuarios (login, senha, papel) VALUES (?, ?, ?)", array($login, $pwd, $papel), "count");
+
+            if($sql){
+                return true;
             }
         }
         public function login($login, $senha) {
 
             $db = new Db();
-            $sql = $db->sqlCmd("SELECT id_usuario, login, senha FROM usuarios WHERE login = ?", array($login), "rows");
+            $sql = $db->sqlCmd("SELECT * FROM usuarios WHERE login = ?", array($login), "rows");
 
             if($sql){
 
@@ -56,6 +44,7 @@
                         $_SESSION['loggedin'] = TRUE;
                         $_SESSION['name'] = $login;
                         $_SESSION['id'] = $row[0];
+                        $_SESSION['role'] = $row[3];
                         header('Location: index.php');
                     } else {
                         header('Location: login.php?msg=Senha inválida&box=danger');
@@ -66,30 +55,18 @@
                 header('Location: login.php?msg=Usuário inválido&box=danger');
             }
         }
-        public function getIdUsuario($id){
-            
+        public function atualizarUsuario($id_usuario, $senha, $papel) {
             $db = new Db();
-            $sql = $db->prepare("SELECT * from usuarios where id = :id ");
-            $sql->bindValue(":id", $id);
-            $sql->execute();
-            $row = $sql->fetch();
-            return $row;
-        }
-        public function atualizarUsuario($nome, $email, $senha,$cep, $rua, $bairro, $cidade, $telefone, $id) {
-            
-            $db = new Db();
-            $sql = $db->prepare("UPDATE usuarios SET nome = :nome, email = :email, senha = :senha,  cep = :cep, rua = :rua, bairro = :bairro, cidade = :cidade, telefone = :telefone where id = :id");
-            $sql->bindValue(":nome", $nome);
-            $sql->bindValue(":email", $email);
-            $sql->bindValue(":senha", $senha);
-            $sql->bindValue(":cep", $cep);
-            $sql->bindValue(":rua", $rua);
-            $sql->bindValue(":bairro", $bairro);
-            $sql->bindValue(":cidade", $cidade);
-            $sql->bindValue(":telefone", $telefone);
-            $sql->bindValue(":id", $id);
-            $sql->execute();
-            return true;
+            if (isset($senha) && !empty($senha)){
+                $pwd = Bcrypt::hash($senha);
+                $sql = $db->sqlCmd("UPDATE usuarios SET senha = ?, papel = ? WHERE id_usuario = ?", array($pwd, $papel, $id_usuario), "count");
+            } else {
+                $sql = $db->sqlCmd("UPDATE usuarios SET papel = ? WHERE id_usuario = ?", array($papel, $id_usuario), "count");
+            }
+
+            if($sql){
+                return true;
+            }
         }
     }
 ?>

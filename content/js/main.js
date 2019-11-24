@@ -133,4 +133,58 @@ jQuery(function ($) {
         });
         return false;
     });
+
+    // Envio para adicionar usuários 
+    $("#usuarioForm").submit(function () {
+        $.ajax({
+            type: "POST",
+            url: "usuarios.php",
+            cache: false,
+            data: $('form#usuarioForm').serialize(),
+            success: function (response) {
+                $("#addUsuariosModal").modal('hide');
+                window.location.replace(canonical + '/usuarios.php');
+            },
+            error: function (e) {
+                alert(e);
+            }
+        });
+        return false;
+    });
+
+    // Envio para Editar usuarios 
+    $(".editarusuarioForm").submit(function () {
+        $.ajax({
+            type: "POST",
+            url: "usuarios.php",
+            cache: false,
+            data: $(this).serialize(),
+            success: function (response) {
+                $('div[id^=editUsuariosModal] .editarusuarioForm').modal('hide');
+                window.location.replace(canonical + '/usuarios.php');
+            },
+            error: function (e) {
+                alert(e);
+            }
+        });
+        return false;
+    });
+
+    // Envio para Remover fornecedores
+    $(".deletarusuarioForm").submit(function () {
+        $.ajax({
+            type: "POST",
+            url: "usuarios.php",
+            cache: false,
+            data: $(this).serialize(),
+            success: function (response) {
+                $('div[id^=deleteUsuariossModal] .editarusuarioForm').modal('hide');
+                window.location.replace(canonical + '/usuarios.php');
+            },
+            error: function (e) {
+                alert(e);
+            }
+        });
+        return false;
+    });
 });

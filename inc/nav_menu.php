@@ -7,6 +7,10 @@
           if (isset($_SESSION['loggedin'])) {
               echo "<li class='nav-item'><a class='nav-link' href='". BASEURL ."/fornecedores.php'>Fornecedores</a></li>";
               echo "<li class='nav-item'><a class='nav-link' href='". BASEURL ."/produtos.php'>Produtos</a></li>";
+
+              if ($_SESSION['role'] == 'admin') {
+                  echo "<li class='nav-item'><a class='nav-link' href='". BASEURL ."/usuarios.php'>Usuários</a></li>";
+              }
           }
       ?>
   </ul>
